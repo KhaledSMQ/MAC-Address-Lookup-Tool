@@ -1,8 +1,8 @@
-Function Get-MACPrefixList.ps1 {
+Function Get-MACPrefixList {
 
     [CmdletBinding()]
     Param (
-        
+
     )
 
 }
