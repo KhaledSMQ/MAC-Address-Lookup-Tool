@@ -9,7 +9,7 @@ Function Download-MACPrefixList {
 
     $Response = ((Invoke-WebRequest -Uri $DownloadURL).Content -split "`n")
 
-    #$Response = $Response[0..($Response.Length-2)]
+    $Response = $Response[0..($Response.Length-2)]
 
     $Response | Out-File $PSScriptRoot\..\Resources\$OutputFileName
 
