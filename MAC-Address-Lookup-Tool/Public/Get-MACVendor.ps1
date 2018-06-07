@@ -55,7 +55,7 @@ Function Get-MACVendor {
                 }
         
                 #Matches 12-34-56-AB-CD-EF
-                '[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}-[A-Fa-f0-9]{2}-[A-Fa-f0-9]{2}-[A-Fa-f0-9]{2}' {
+                '[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}' {
                     
                     $MAC = $MAC.Replace("-","").Substring(0,6)
         
