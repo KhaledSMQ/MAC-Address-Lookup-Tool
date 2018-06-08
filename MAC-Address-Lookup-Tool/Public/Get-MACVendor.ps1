@@ -67,18 +67,23 @@ Function Get-MACVendor {
 
     Begin {
 
+        #Get a parsed version of the prefix list
         $MACList = Parse-MACPrefixList
 
     }
 
     Process {
     
+        #Based on which parameter set is in play
         Switch ($PSCmdlet.ParameterSetName) {
 
+            #If we're doing a MAC address lookup
             'LookupByMAC' {
 
+                #Loop through each MAC
                 ForEach ($Address in $MAC) {
 
+                    #Re-format the $Address variable into a 123ABC prefix format using a regular expression switch.
                     Switch -Regex ($Address) {
 
                         #Matches 123ABC format
@@ -91,6 +96,7 @@ Function Get-MACVendor {
                         #Matches 123456ABCDEF format
                         '[A-Fa-f0-9]{12}' {
                 
+                            #Grab the first 6 characters
                             $Address = $Address.Substring(0,6)
                 
                         }
@@ -98,6 +104,7 @@ Function Get-MACVendor {
                         #Matches 12.3A.BC format
                         '[A-Fa-f0-9]{2}\.[A-Fa-f0-9]{2}\.[A-Fa-f0-9]{2}' {
                 
+                            #Remove the periods and grab the first 6 characters
                             $Address = $Address.Replace(".","").Substring(0,6)
                 
                         }
@@ -105,6 +112,7 @@ Function Get-MACVendor {
                         #Matches 12.34.56.AB.DC.EF format
                         '[A-Fa-f0-9]{2}\.[A-Fa-f0-9]{2}\.[A-Fa-f0-9]{2}\.[A-Fa-f0-9]{2}\.[A-Fa-f0-9]{2}\.[A-Fa-f0-9]{2}' {
                 
+                            #Remove the periods and grab the first 6 characters
                             $Address = $Address.Replace(".","").Substring(0,6)
                 
                         }
@@ -112,6 +120,7 @@ Function Get-MACVendor {
                         #Matches 12-3A-BC
                         '[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}' {
                 
+                            #Remove the dashes and grab the first 6 characters
                             $Address = $Address.Replace("-","")
                 
                         }
@@ -119,6 +128,7 @@ Function Get-MACVendor {
                         #Matches 12-34-56-AB-CD-EF
                         '[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}\-[A-Fa-f0-9]{2}' {
                             
+                            #Remove the dashes and grab the first 6 characters
                             $Address = $Address.Replace("-","").Substring(0,6)
                 
                         }
@@ -126,6 +136,7 @@ Function Get-MACVendor {
                         #Matches 1234-56AB-CDEF
                         '[A-Fa-f0-9]{4}\-[A-Fa-f0-9]{4}\-[A-Fa-f0-9]{4}' {
                 
+                            #Remove the dashes and grab the first 6 characters
                             $Address = $Address.Replace("-","").Substring(0,6)
                 
                         }
@@ -133,12 +144,15 @@ Function Get-MACVendor {
                         #Matches 1234.56AB.CDEF
                         '[A-Fa-f0-9]{4}\.[A-Fa-f0-9]{4}\.[A-Fa-f0-9]{4}' {
                 
+                            #Remove the periods and grab the first 6 characters
                             $Address = $Address.Replace(".","").Substring(0,6)
                 
                         }
                 
                     }
                 
+                    #Now that the $Address variable is in the same format regardless of the input,
+                    #Filter the MAC list for the address, then output it.
                     $Output = ($MACList | Where-Object { $_.MACPrefix -eq $Address })
 
                     Write-Output $Output
@@ -147,8 +161,10 @@ Function Get-MACVendor {
                 
             }
 
+            #If we're doing a vendor lookup
             'LookupByVendor' {
 
+                #Filter the MAC list for the vendor, then output it.
                 $Output = $MACList | Where-Object { $_.MACVendor -eq $Vendor }
 
                 Write-Output $Output
