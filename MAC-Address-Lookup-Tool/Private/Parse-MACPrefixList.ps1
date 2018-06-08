@@ -13,8 +13,10 @@ Function Parse-MACPrefixList {
     
     [CmdletBinding()]
 
+    #Gather the list from the cache, or if not found it will be downloaded automatically.
     $List = Get-MACPrefixList
 
+    #Parse each line of the file, create an object with two properties, and populate the properties.
     Write-Output $List | ForEach { [PSCustomObject]@{"MACPrefix"=$_.Substring(0,6); "MACVendor"=$_.SubString(7)} }
 
 }
