@@ -21,18 +21,23 @@ Function Get-MACPrefixList {
         [Switch]$DownloadNewCopy
     )
 
+    #Set the information preference so Write-Information displays on the screen
     $InformationPreference = "Continue"
+    #Delare the prefix list file path
     $PrefixListPath = "$PSScriptRoot\..\Resources\List.txt"
 
     #Check if a copy of the file already exists
     $File = Get-ChildItem $PrefixListPath -ErrorAction SilentlyContinue
     $TestPath = $File | Test-Path
+    #Create a date time object for 7 days ago
     $OneWeekAgo = (Get-Date).AddDays(-7)
 
+    #If the file doesn't exist, or its older than a week, or the DownloadNewCopy switch is specified
     If ($TestPath -eq $False -or $File.LastWriteTime -lt $OneWeekAgo -or $DownloadNewCopy) {
 
         Write-Information "Downloading a fresh copy of the prefix list..."
 
+        #Download a copy of the prefix list
         Download-MACPrefixList
 
     }
@@ -43,6 +48,7 @@ Function Get-MACPrefixList {
 
     }
 
+    #Get the content of the prefix list, and output it to the screen
     $PrefixList = Get-Content $PrefixListPath
 
     Write-Output $PrefixList
