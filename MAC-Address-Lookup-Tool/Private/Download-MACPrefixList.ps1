@@ -24,10 +24,13 @@ Function Download-MACPrefixList {
         $OutputFileName = 'List.txt'
     )
 
+    #Make a web request to the download URL. Split the results into an array, one index for each line break.
     $Response = ((Invoke-WebRequest -Uri $DownloadURL).Content -split "`n")
 
+    #Take the reponse, and grab all lines except the last one (this makes parsing not fail later on).
     $Response = $Response[0..($Response.Length-2)]
 
+    #Output the response to Resources folder
     $Response | Out-File $PSScriptRoot\..\Resources\$OutputFileName
 
 }
