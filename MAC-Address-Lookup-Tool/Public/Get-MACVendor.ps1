@@ -148,6 +148,13 @@ Function Get-MACVendor {
                             $Address = $Address.Replace(".","").Substring(0,6)
                 
                         }
+
+                        Default {
+
+                            Write-Error "Input is not a valid MAC address or MAC address prefix!"
+                            Break
+
+                        }
                 
                     }
                 
