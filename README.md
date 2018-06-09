@@ -35,7 +35,7 @@ DC86D8    Apple
 B84FD5    Microsoft
 ```
 ```PowerShell
-PS>'0007B3','DC86D8','001377','94EB2C','B84FD5' | Get-MACVendor
+PS> '0007B3','DC86D8','001377','94EB2C','B84FD5' | Get-MACVendor
 
 MACPrefix MACVendor
 --------- ---------
@@ -46,7 +46,7 @@ DC86D8    Apple
 B84FD5    Microsoft
 ```
 ```PowerShell
-PS>Get-MACVendor -Vendor 'OnePlus'
+PS> Get-MACVendor -Vendor 'OnePlus'
 
 MACPrefix MACVendor
 --------- ---------
