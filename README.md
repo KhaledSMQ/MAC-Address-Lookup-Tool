@@ -6,7 +6,7 @@
 A PowerShell module that will output the vendor name for a given MAC address or MAC address prefix. It will also take the vendor name as an input and output all of its assigned MAC address prefixes.
 
 ## Installation
-Via the PowerShell Gallery on PowerShell 5/0 and up (Recommended):
+Via the PowerShell Gallery on PowerShell 5.0 and up (Recommended):
 ```Powershell
 PS> Install-Module MAC-Address-Lookup-Tool
 ```
