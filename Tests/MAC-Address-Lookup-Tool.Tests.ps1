@@ -108,6 +108,15 @@ Describe "Get-MACVendor" {
 
             }
 
+            It "Returns correct results when piping in Get-NetAdapter" {
+
+                $Error.Clear()
+                Remove-Variable Return -ErrorAction SilentlyContinue
+                $Return = Get-NetAdapter | Select-Object -First 1 | Get-MACVendor
+                $Return.MACVendor | Should Be "Microsoft"
+
+            }
+
         }
 
     }

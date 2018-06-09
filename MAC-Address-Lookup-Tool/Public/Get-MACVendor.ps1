@@ -57,7 +57,8 @@ Function Get-MACVendor {
     [CmdletBinding()]
     Param (
 
-        [Parameter(Position=0,Mandatory=$True,ParameterSetName='LookupByMAC',ValueFromPipeline=$True)]
+        [Parameter(Position=0,Mandatory=$True,ParameterSetName='LookupByMAC',ValueFromPipeline=$True, ValueFromPipelineByPropertyName=$True)]
+        [Alias('MACAddress')]
         [String[]]$MAC,
 
         [Parameter(Position=0,Mandatory=$True,ParameterSetName='LookupByVendor')]
